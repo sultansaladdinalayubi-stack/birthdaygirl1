@@ -93,7 +93,6 @@
 			background: #811536;
 		}
 
-		/* PIN screen */
 		#pin-screen {
 			position: relative;
 			display: grid;
@@ -268,7 +267,6 @@
 		.bubbles li:nth-child(4) { left: 84%; width: 24px; animation-delay: 7s; animation-duration: 12s; }
 		.bubbles li:nth-child(5) { left: 48%; width: 32px; animation-delay: 3s; animation-duration: 15s; }
 
-		/* Birthday greeting and fireworks */
 		#fireworks-screen {
 			position: relative;
 			overflow: hidden;
@@ -343,7 +341,6 @@
 
 		.sound-button[hidden] { display: none; }
 
-		/* Birthday cake */
 		#cake-screen {
 			display: grid;
 			min-height: 100vh;
@@ -427,7 +424,7 @@
 		}
 
 		.layer-bottom { bottom: 25px; left: 25px; width: 290px; height: 100px; border-radius: 18px 18px 14px 14px; }
-		.layer-top { bottom: 121px; left: 65px; width: 210px; height: 82px; border-radius: 16px 16px 12px 12px; background: radial-gradient(ellipse at 50% 0, rgba(255, 226, 194, 0.26), transparent 72%), repeating-linear-gradient(180deg, #9f495d 0 10px, #7d2a44 10px 15px); }
+		.layer-top { bottom: 121px; left: 65px; width: 210px; height: 82px; border-radius: 16px 16px 12px 12px; background: radial-gradient(ellipse at 50% 0, rgba(255, 226, 194, 0.26), transparent 72%), repeating-linear-gradient(180deg, #c27469 0 11px, #9a4b52 11px 16px); }
 
 		.icing {
 			position: absolute;
@@ -571,7 +568,6 @@
 			font-size: 18px;
 		}
 
-		/* Letter */
 		#letter-screen {
 			position: relative;
 			overflow: hidden;
@@ -674,11 +670,11 @@
 
 		.envelope-back, .envelope-front, .envelope-flap, .letter-paper { position: absolute; inset: 0; }
 		.envelope-back { border: 1px solid rgba(255, 244, 223, 0.6); border-radius: 8px; background: linear-gradient(145deg, #d98c79, #a84e64); box-shadow: 0 22px 48px rgba(7, 3, 14, 0.38); }
-		.letter-paper { z-index: 1; inset: 12px 18px 8px; display: grid; align-content: start; padding: 25px 12px; border-radius: 4px; background: #fff8ec; color: #75413a; box-shadow: 0 4px 12px rgba(30, 10, 24, 0.18); }
+		.letter-paper { z-index: 1; inset: 12px 18px 8px; display: grid; align-content: start; padding: 25px 12px; border-radius: 4px; background: #fff8ec; color: #75413a; box-shadow: 0 4px 12px rgba(30, 10, 24, 0.15); transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1); }
 		.letter-preview { font-family: Georgia, "Times New Roman", serif; font-size: 20px; font-style: italic; }
 		.envelope-front { z-index: 2; clip-path: polygon(0 22%, 50% 62%, 100% 22%, 100% 100%, 0 100%); border-radius: 0 0 8px 8px; background: linear-gradient(145deg, #c76e71, #943653); }
-		.envelope-flap { z-index: 3; clip-path: polygon(0 0, 100% 0, 50% 62%); background: linear-gradient(160deg, #efb18a, #c76e71); transform-origin: 50% 0; transition: transform 550ms ease, z-index 0ms 200ms; }
-		.seal { position: absolute; z-index: 4; top: 105px; left: 50%; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(255, 244, 223, 0.7); border-radius: 50%; background: linear-gradient(145deg, #f8d9bd, #d67b8b); color: #8b183d; font-size: 18px; transform: translateX(-50%); transition: opacity 350ms ease, transform 350ms ease; }
+		.envelope-flap { z-index: 3; clip-path: polygon(0 0, 100% 0, 50% 62%); background: linear-gradient(160deg, #efb18a, #c76e71); transform-origin: 50% 0; transition: transform 550ms ease, z-index 0ms 275ms; }
+		.seal { position: absolute; z-index: 4; top: 105px; left: 50%; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(255, 244, 223, 0.7); border-radius: 50%; background: #e6a94f; color: #54142f; font-family: Georgia, serif; font-size: 25px; transform: translateX(-50%); transition: opacity 250ms ease, transform 250ms ease; }
 		.envelope.is-open .envelope-flap { z-index: 0; transform: rotateX(180deg); }
 		.envelope.is-open .letter-paper { transform: translateY(-115px); }
 		.envelope.is-open .seal { opacity: 0; transform: translate(-50%, 18px) scale(0.6); }
@@ -836,7 +832,7 @@
 			<main class="greeting">
 				<p class="eyebrow">Malam ini cuma tentang kamu</p>
 				<h1>Selamat Ulang Tahun!</h1>
-				<p class="message">Selamat bertambah usia manusia favoritku. Berbahagialah selalu, seperti pelangi yang selalu membahagiakan orang lain.<br>Semoga hal-hal baik selalu menyertaimu, dan semoga kasih sayang dan keberuntungan selalu menemanimu dalam setiap langkahmu.</p>
+				<p class="message">Selamat bertambah usia manusia favoritku. Berbahagialah selalu, seperti pelangi yang selalu membahagiakan orang lain.<br>Semoga hal-hal baik selalu menyertaimu, dan semoga kasih sayang selalu menyelimutimu.</p>
 				<button class="sound-button" id="toggle-sound" type="button" hidden>Aktifkan suara kembang api</button>
 			</main>
 			<button class="stage-back" type="button" data-go="cake">Lanjut ke kue ulang tahun</button>
@@ -900,7 +896,6 @@
 				<span class="envelope-petal" aria-hidden="true"></span>
 			</div>
 			<article class="letter-content" id="letter-content" hidden>
-				<p>Selamat bertambah usia,</p>
 				<p>Untuk kamu yang perlahan tumbuh menjadi seseorang yang bahkan belum pernah kamu bayangkan. Semoga setiap tahun yang datang tidak hanya menambah angka pada usiamu, tetapi juga menambah keberanian, kedewasaan, dan kebahagiaan yang benar-benar kamu pahami.</p>
 				<p>Semoga hidupmu dipenuhi dengan orang-orang yang menyayangi kamu dengan tulus, serta momen-momen yang membuatmu merasa tenang, dihargai, dan penuh cinta. Semoga semua mimpi kecil dan besar yang kamu inginkan mulai menemukan jalannya, dengan hati yang sabar dan langkah yang kuat.</p>
 				<p>Jika suatu hari langkahmu terasa berat, semoga selalu ada alasan yang membuatmu ingin melanjutkan perjalanan itu. Saat menoleh ke belakang, semoga kamu selalu tersenyum melihat betapa jauh diri kamu telah melangkah.</p>
@@ -919,6 +914,11 @@
 		const pinMessage = document.getElementById("pin-message");
 		const loginForm = document.getElementById("login-form");
 		const pinCode = "28102005";
+		const soundButton = document.getElementById("toggle-sound");
+		const blowCandlesButton = document.getElementById("blow-candles");
+		const wishMessage = document.getElementById("wish-message");
+		const letterLink = document.getElementById("letter-link");
+
 		let currentStage = "home";
 		let soundEnabled = false;
 
@@ -935,10 +935,14 @@
 
 		function showStage(stage) {
 			currentStage = stage;
-			screens.forEach((screen) => { screen.hidden = screen.id !== `${stage}-screen`; });
+			screens.forEach((screen) => {
+				screen.hidden = screen.id !== `${stage}-screen`;
+			});
+
 			document.body.style.background = stage === "home"
 				? "radial-gradient(ellipse at 12% 12%, rgba(255, 180, 159, 0.28), transparent 32%), radial-gradient(ellipse at 88% 88%, rgba(255, 207, 136, 0.24), transparent 34%), #fff8f1"
 				: "#190d25";
+
 			if (stage === "fireworks") beginFireworks();
 			if (stage === "pin") pinInput.focus();
 			window.scrollTo(0, 0);
@@ -948,6 +952,7 @@
 			button.addEventListener("click", () => {
 				const stage = button.dataset.go;
 				showStage(stage);
+
 				if (stage === "home") {
 					pinInput.value = "";
 					pinMessage.textContent = "";
@@ -957,6 +962,7 @@
 
 		function checkPin() {
 			if (pinInput.value.length < pinCode.length) return;
+
 			if (pinInput.value === pinCode) {
 				pinMessage.textContent = "";
 				showStage("fireworks");
@@ -970,8 +976,13 @@
 			button.addEventListener("click", () => {
 				const key = button.dataset.key;
 				pinMessage.textContent = "";
-				if (key === "hapus") pinInput.value = pinInput.value.slice(0, -1);
-				else if (pinInput.value.length < pinCode.length) pinInput.value += key;
+
+				if (key === "hapus") {
+					pinInput.value = pinInput.value.slice(0, -1);
+				} else if (pinInput.value.length < pinCode.length) {
+					pinInput.value += key;
+				}
+
 				checkPin();
 			});
 		});
@@ -986,7 +997,6 @@
 
 		const canvas = document.getElementById("sky");
 		const context = canvas.getContext("2d");
-		const soundButton = document.getElementById("toggle-sound");
 		const rockets = [];
 		const sparks = [];
 		const colors = ["#ffd166", "#ff7597", "#a8e6cf", "#fff1c1", "#c9a7ff"];
@@ -995,6 +1005,7 @@
 			burst: ["burst2.mp3", "burst-sm-1.mp3", "burst-sm-2.mp3"]
 		};
 		const activeSounds = new Set();
+
 		let width = 0;
 		let height = 0;
 		let lastLaunch = 0;
@@ -1010,84 +1021,133 @@
 			context.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
 		}
 
-		function playSound(type) {
-			if (!soundEnabled) return;
-			const files = sounds[type];
+		function playFireworkSound(group, volume) {
+			const files = sounds[group];
 			if (!files || !files.length) return;
+
 			const file = files[Math.floor(Math.random() * files.length)];
 			const audio = new Audio(file);
-			audio.volume = 0.45;
-			audio.play().catch(() => {});
+			audio.volume = volume;
 			activeSounds.add(audio);
-			audio.addEventListener("ended", () => activeSounds.delete(audio), { once: true });
+
+			audio.addEventListener("ended", () => {
+				activeSounds.delete(audio);
+			}, { once: true });
+
+			audio.play().then(() => {
+				soundEnabled = true;
+				soundButton.hidden = true;
+			}).catch((error) => {
+				activeSounds.delete(audio);
+
+				if (error.name === "NotAllowedError") {
+					soundButton.hidden = false;
+				} else {
+					console.error(`Tidak dapat memutar efek suara ${file}.`, error);
+				}
+			});
+		}
+
+		function launchFirework() {
+			const x = width * (0.12 + Math.random() * 0.76);
+			const targetY = height * (0.14 + Math.random() * 0.4);
+
+			rockets.push({
+				x,
+				y: height + 8,
+				targetY,
+				speed: 5 + Math.random() * 2,
+				color: colors[Math.floor(Math.random() * colors.length)]
+			});
+
+			if (soundEnabled) playFireworkSound("lift", 0.35);
+		}
+
+		function burst(rocket) {
+			if (soundEnabled) playFireworkSound("burst", 0.55);
+
+			const count = 48 + Math.floor(Math.random() * 28);
+
+			for (let index = 0; index < count; index += 1) {
+				const angle = Math.random() * Math.PI * 2;
+				const speed = 1 + Math.random() * 4.2;
+
+				sparks.push({
+					x: rocket.x,
+					y: rocket.y,
+					vx: Math.cos(angle) * speed,
+					vy: Math.sin(angle) * speed,
+					life: 48 + Math.random() * 30,
+					color: Math.random() > 0.28
+						? rocket.color
+						: colors[Math.floor(Math.random() * colors.length)],
+					size: 1 + Math.random() * 1.8
+				});
+			}
+		}
+
+		function animate(time) {
+			if (currentStage !== "fireworks") {
+				animationStarted = false;
+				return;
+			}
+
+			context.clearRect(0, 0, width, height);
+
+			if (time - lastLaunch > 850) {
+				launchFirework();
+				lastLaunch = time;
+			}
+
+			for (let index = rockets.length - 1; index >= 0; index -= 1) {
+				const rocket = rockets[index];
+				rocket.y -= rocket.speed;
+
+				context.beginPath();
+				context.fillStyle = rocket.color;
+				context.shadowBlur = 12;
+				context.shadowColor = rocket.color;
+				context.arc(rocket.x, rocket.y, 2, 0, Math.PI * 2);
+				context.fill();
+
+				if (rocket.y <= rocket.targetY) {
+					burst(rocket);
+					rockets.splice(index, 1);
+				}
+			}
+
+			context.shadowBlur = 0;
+
+			for (let index = sparks.length - 1; index >= 0; index -= 1) {
+				const spark = sparks[index];
+				spark.x += spark.vx;
+				spark.y += spark.vy;
+				spark.vx *= 0.985;
+				spark.vy = spark.vy * 0.985 + 0.035;
+				spark.life -= 1;
+
+				context.globalAlpha = Math.max(spark.life / 70, 0);
+				context.fillStyle = spark.color;
+				context.fillRect(spark.x, spark.y, spark.size, spark.size);
+
+				if (spark.life <= 0) {
+					sparks.splice(index, 1);
+				}
+			}
+
+			context.globalAlpha = 1;
+			requestAnimationFrame(animate);
 		}
 
 		function beginFireworks() {
-			if (animationStarted) return;
-			animationStarted = true;
 			resizeCanvas();
-			function animate() {
-				context.clearRect(0, 0, width, height);
-				if (Date.now() - lastLaunch > 420) {
-					lastLaunch = Date.now();
-					const rocket = {
-						x: Math.random() * width,
-						y: height,
-						targetX: Math.random() * width,
-						targetY: height * (0.2 + Math.random() * 0.35),
-						progress: 0,
-						color: colors[Math.floor(Math.random() * colors.length)],
-					};
-					rockets.push(rocket);
-					playSound("lift");
-				}
 
-				for (let i = rockets.length - 1; i >= 0; i--) {
-					const rocket = rockets[i];
-					rocket.progress += 0.03;
-					const t = rocket.progress;
-					const x = rocket.x + (rocket.targetX - rocket.x) * t;
-					const y = rocket.y - (rocket.y - rocket.targetY) * t;
-					context.beginPath();
-					context.fillStyle = rocket.color;
-					context.arc(x, y, 2.4, 0, Math.PI * 2);
-					context.fill();
-
-					if (t >= 1) {
-						for (let s = 0; s < 24; s++) {
-							sparks.push({
-								x,
-								y,
-								vX: (Math.random() - 0.5) * 4.8,
-								vY: (Math.random() - 0.5) * 4.8,
-								life: 50 + Math.random() * 30,
-								color: rocket.color,
-								size: 1.5 + Math.random() * 2.4,
-							});
-						}
-						playSound("burst");
-						rockets.splice(i, 1);
-					}
-				}
-
-				for (let i = sparks.length - 1; i >= 0; i--) {
-					const spark = sparks[i];
-					spark.x += spark.vX;
-					spark.y += spark.vY;
-					spark.vY += 0.04;
-					spark.life -= 1;
-					context.beginPath();
-					context.fillStyle = spark.color;
-					context.arc(spark.x, spark.y, spark.size, 0, Math.PI * 2);
-					context.fill();
-
-					if (spark.life <= 0) sparks.splice(i, 1);
-				}
-
+			if (!animationStarted) {
+				animationStarted = true;
 				requestAnimationFrame(animate);
 			}
 
-			requestAnimationFrame(animate);
+			playFireworkSound("lift", 0.35);
 		}
 
 		function setSoundState(enabled) {
@@ -1099,12 +1159,40 @@
 		soundButton.addEventListener("click", () => {
 			const next = !soundEnabled;
 			setSoundState(next);
-			if (next) playSound("lift");
+
+			if (next) {
+				playFireworkSound("lift", 0.35);
+			}
+		});
+
+		blowCandlesButton.addEventListener("click", () => {
+			const cakeStage = document.querySelector(".cake-stage");
+
+			cakeStage.classList.add("blowing");
+			blowCandlesButton.disabled = true;
+			blowCandlesButton.textContent = "Sedang meniup lilin...";
+
+			window.setTimeout(() => {
+				cakeStage.classList.remove("blowing");
+				cakeStage.classList.add("candles-out");
+				cakeStage.setAttribute(
+					"aria-label",
+					"Kue ulang tahun dua lapis dengan tiga lilin yang baru saja ditiup"
+				);
+
+				blowCandlesButton.textContent = "Harapan terkirim";
+				wishMessage.textContent = "Semoga semua harapanmu menjadi nyata. Selamat ulang tahun!";
+				letterLink.hidden = false;
+			}, 850);
 		});
 
 		window.addEventListener("resize", resizeCanvas);
+
 		window.addEventListener("beforeunload", () => {
-			activeSounds.forEach((audio) => { audio.pause(); audio.currentTime = 0; });
+			activeSounds.forEach((audio) => {
+				audio.pause();
+				audio.currentTime = 0;
+			});
 		});
 	</script>
 </body>
