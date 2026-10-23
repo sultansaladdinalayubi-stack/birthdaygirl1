@@ -905,294 +905,306 @@
 		</section>
 	</div>
 
-	<script>
-		"use strict";
+<script>
+	"use strict";
 
-		const music = document.getElementById("birthday-music");
-		const screens = [...document.querySelectorAll(".screen")];
-		const pinInput = document.getElementById("password");
-		const pinMessage = document.getElementById("pin-message");
-		const loginForm = document.getElementById("login-form");
-		const pinCode = "28102005";
-		const soundButton = document.getElementById("toggle-sound");
-		const blowCandlesButton = document.getElementById("blow-candles");
-		const wishMessage = document.getElementById("wish-message");
-		const letterLink = document.getElementById("letter-link");
+	const music = document.getElementById("birthday-music");
+	const screens = [...document.querySelectorAll(".screen")];
+	const pinInput = document.getElementById("password");
+	const pinMessage = document.getElementById("pin-message");
+	const loginForm = document.getElementById("login-form");
+	const pinCode = "28102005";
+	const soundButton = document.getElementById("toggle-sound");
+	const blowCandlesButton = document.getElementById("blow-candles");
+	const wishMessage = document.getElementById("wish-message");
+	const letterLink = document.getElementById("letter-link");
+	const envelope = document.getElementById("open-letter");
+	const letter = document.getElementById("letter-content");
+	const instruction = document.getElementById("instruction");
 
-		let currentStage = "home";
-		let soundEnabled = false;
+	let currentStage = "home";
+	let soundEnabled = false;
 
-		function tryStartMusic() {
-			if (!music.paused) return;
-			music.play().catch((error) => {
-				if (error.name !== "NotAllowedError") console.error("Musik ulang tahun tidak dapat diputar.", error);
-			});
-		}
+	function tryStartMusic() {
+		if (!music.paused) return;
+		music.play().catch((error) => {
+			if (error.name !== "NotAllowedError") console.error("Musik ulang tahun tidak dapat diputar.", error);
+		});
+	}
 
-		tryStartMusic();
-		document.addEventListener("pointerdown", tryStartMusic, { once: true });
-		document.addEventListener("keydown", tryStartMusic, { once: true });
+	tryStartMusic();
+	document.addEventListener("pointerdown", tryStartMusic, { once: true });
+	document.addEventListener("keydown", tryStartMusic, { once: true });
 
-		function showStage(stage) {
-			currentStage = stage;
-			screens.forEach((screen) => {
-				screen.hidden = screen.id !== `${stage}-screen`;
-			});
-
-			document.body.style.background = stage === "home"
-				? "radial-gradient(ellipse at 12% 12%, rgba(255, 180, 159, 0.28), transparent 32%), radial-gradient(ellipse at 88% 88%, rgba(255, 207, 136, 0.24), transparent 34%), #fff8f1"
-				: "#190d25";
-
-			if (stage === "fireworks") beginFireworks();
-			if (stage === "pin") pinInput.focus();
-			window.scrollTo(0, 0);
-		}
-
-		document.querySelectorAll("[data-go]").forEach((button) => {
-			button.addEventListener("click", () => {
-				const stage = button.dataset.go;
-				showStage(stage);
-
-				if (stage === "home") {
-					pinInput.value = "";
-					pinMessage.textContent = "";
-				}
-			});
+	function showStage(stage) {
+		currentStage = stage;
+		screens.forEach((screen) => {
+			screen.hidden = screen.id !== `${stage}-screen`;
 		});
 
-		function checkPin() {
-			if (pinInput.value.length < pinCode.length) return;
+		document.body.style.background = stage === "home"
+			? "radial-gradient(ellipse at 12% 12%, rgba(255, 180, 159, 0.28), transparent 32%), radial-gradient(ellipse at 88% 88%, rgba(255, 207, 136, 0.24), transparent 34%), #fff8f1"
+			: "#190d25";
 
-			if (pinInput.value === pinCode) {
-				pinMessage.textContent = "";
-				showStage("fireworks");
-			} else {
-				pinMessage.textContent = "PIN salah. Coba lagi.";
+		if (stage === "fireworks") beginFireworks();
+		if (stage === "pin") pinInput.focus();
+		window.scrollTo(0, 0);
+	}
+
+	document.querySelectorAll("[data-go]").forEach((button) => {
+		button.addEventListener("click", () => {
+			const stage = button.dataset.go;
+			showStage(stage);
+
+			if (stage === "home") {
 				pinInput.value = "";
-			}
-		}
-
-		document.querySelectorAll("#keypad button").forEach((button) => {
-			button.addEventListener("click", () => {
-				const key = button.dataset.key;
 				pinMessage.textContent = "";
-
-				if (key === "hapus") {
-					pinInput.value = pinInput.value.slice(0, -1);
-				} else if (pinInput.value.length < pinCode.length) {
-					pinInput.value += key;
-				}
-
-				checkPin();
-			});
+			}
 		});
+	});
 
-		pinInput.addEventListener("input", () => {
-			pinInput.value = pinInput.value.replace(/\D/g, "");
+	function checkPin() {
+		if (pinInput.value.length < pinCode.length) return;
+
+		if (pinInput.value === pinCode) {
 			pinMessage.textContent = "";
+			showStage("fireworks");
+		} else {
+			pinMessage.textContent = "PIN salah. Coba lagi.";
+			pinInput.value = "";
+		}
+	}
+
+	document.querySelectorAll("#keypad button").forEach((button) => {
+		button.addEventListener("click", () => {
+			const key = button.dataset.key;
+			pinMessage.textContent = "";
+
+			if (key === "hapus") {
+				pinInput.value = pinInput.value.slice(0, -1);
+			} else if (pinInput.value.length < pinCode.length) {
+				pinInput.value += key;
+			}
+
 			checkPin();
 		});
+	});
 
-		loginForm.addEventListener("submit", (event) => event.preventDefault());
+	pinInput.addEventListener("input", () => {
+		pinInput.value = pinInput.value.replace(/\D/g, "");
+		pinMessage.textContent = "";
+		checkPin();
+	});
 
-		const canvas = document.getElementById("sky");
-		const context = canvas.getContext("2d");
-		const rockets = [];
-		const sparks = [];
-		const colors = ["#ffd166", "#ff7597", "#a8e6cf", "#fff1c1", "#c9a7ff"];
-		const sounds = {
-			lift: ["lift1.mp3", "lift2.mp3", "lift3.mp3"],
-			burst: ["burst2.mp3", "burst-sm-1.mp3", "burst-sm-2.mp3"]
-		};
-		const activeSounds = new Set();
+	loginForm.addEventListener("submit", (event) => event.preventDefault());
 
-		let width = 0;
-		let height = 0;
-		let lastLaunch = 0;
-		let animationStarted = false;
+	const canvas = document.getElementById("sky");
+	const context = canvas.getContext("2d");
+	const rockets = [];
+	const sparks = [];
+	const colors = ["#ffd166", "#ff7597", "#a8e6cf", "#fff1c1", "#c9a7ff"];
+	const sounds = {
+		lift: ["lift1.mp3", "lift2.mp3", "lift3.mp3"],
+		burst: ["burst2.mp3", "burst-sm-1.mp3", "burst-sm-2.mp3"]
+	};
+	const activeSounds = new Set();
 
-		function resizeCanvas() {
-			width = window.innerWidth;
-			height = window.innerHeight;
-			canvas.width = width * window.devicePixelRatio;
-			canvas.height = height * window.devicePixelRatio;
-			canvas.style.width = `${width}px`;
-			canvas.style.height = `${height}px`;
-			context.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
-		}
+	let width = 0;
+	let height = 0;
+	let lastLaunch = 0;
+	let animationStarted = false;
 
-		function playFireworkSound(group, volume) {
-			const files = sounds[group];
-			if (!files || !files.length) return;
+	function resizeCanvas() {
+		width = window.innerWidth;
+		height = window.innerHeight;
+		canvas.width = width * window.devicePixelRatio;
+		canvas.height = height * window.devicePixelRatio;
+		canvas.style.width = `${width}px`;
+		canvas.style.height = `${height}px`;
+		context.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+	}
 
-			const file = files[Math.floor(Math.random() * files.length)];
-			const audio = new Audio(file);
-			audio.volume = volume;
-			activeSounds.add(audio);
+	function playFireworkSound(group, volume) {
+		const files = sounds[group];
+		if (!files || !files.length) return;
 
-			audio.addEventListener("ended", () => {
-				activeSounds.delete(audio);
-			}, { once: true });
+		const file = files[Math.floor(Math.random() * files.length)];
+		const audio = new Audio(file);
+		audio.volume = volume;
+		activeSounds.add(audio);
 
-			audio.play().then(() => {
-				soundEnabled = true;
-				soundButton.hidden = true;
-			}).catch((error) => {
-				activeSounds.delete(audio);
+		audio.addEventListener("ended", () => {
+			activeSounds.delete(audio);
+		}, { once: true });
 
-				if (error.name === "NotAllowedError") {
-					soundButton.hidden = false;
-				} else {
-					console.error(`Tidak dapat memutar efek suara ${file}.`, error);
-				}
+		audio.play().then(() => {
+			soundEnabled = true;
+			soundButton.hidden = true;
+		}).catch((error) => {
+			activeSounds.delete(audio);
+
+			if (error.name === "NotAllowedError") {
+				soundButton.hidden = false;
+			} else {
+				console.error(`Tidak dapat memutar efek suara ${file}.`, error);
+			}
+		});
+	}
+
+	function launchFirework() {
+		const x = width * (0.12 + Math.random() * 0.76);
+		const targetY = height * (0.14 + Math.random() * 0.4);
+
+		rockets.push({
+			x,
+			y: height + 8,
+			targetY,
+			speed: 5 + Math.random() * 2,
+			color: colors[Math.floor(Math.random() * colors.length)]
+		});
+
+		if (soundEnabled) playFireworkSound("lift", 0.35);
+	}
+
+	function burst(rocket) {
+		if (soundEnabled) playFireworkSound("burst", 0.55);
+
+		const count = 48 + Math.floor(Math.random() * 28);
+
+		for (let index = 0; index < count; index += 1) {
+			const angle = Math.random() * Math.PI * 2;
+			const speed = 1 + Math.random() * 4.2;
+
+			sparks.push({
+				x: rocket.x,
+				y: rocket.y,
+				vx: Math.cos(angle) * speed,
+				vy: Math.sin(angle) * speed,
+				life: 48 + Math.random() * 30,
+				color: Math.random() > 0.28
+					? rocket.color
+					: colors[Math.floor(Math.random() * colors.length)],
+				size: 1 + Math.random() * 1.8
 			});
 		}
+	}
 
-		function launchFirework() {
-			const x = width * (0.12 + Math.random() * 0.76);
-			const targetY = height * (0.14 + Math.random() * 0.4);
-
-			rockets.push({
-				x,
-				y: height + 8,
-				targetY,
-				speed: 5 + Math.random() * 2,
-				color: colors[Math.floor(Math.random() * colors.length)]
-			});
-
-			if (soundEnabled) playFireworkSound("lift", 0.35);
+	function animate(time) {
+		if (currentStage !== "fireworks") {
+			animationStarted = false;
+			return;
 		}
 
-		function burst(rocket) {
-			if (soundEnabled) playFireworkSound("burst", 0.55);
+		context.clearRect(0, 0, width, height);
 
-			const count = 48 + Math.floor(Math.random() * 28);
+		if (time - lastLaunch > 850) {
+			launchFirework();
+			lastLaunch = time;
+		}
 
-			for (let index = 0; index < count; index += 1) {
-				const angle = Math.random() * Math.PI * 2;
-				const speed = 1 + Math.random() * 4.2;
+		for (let index = rockets.length - 1; index >= 0; index -= 1) {
+			const rocket = rockets[index];
+			rocket.y -= rocket.speed;
 
-				sparks.push({
-					x: rocket.x,
-					y: rocket.y,
-					vx: Math.cos(angle) * speed,
-					vy: Math.sin(angle) * speed,
-					life: 48 + Math.random() * 30,
-					color: Math.random() > 0.28
-						? rocket.color
-						: colors[Math.floor(Math.random() * colors.length)],
-					size: 1 + Math.random() * 1.8
-				});
+			context.beginPath();
+			context.fillStyle = rocket.color;
+			context.shadowBlur = 12;
+			context.shadowColor = rocket.color;
+			context.arc(rocket.x, rocket.y, 2, 0, Math.PI * 2);
+			context.fill();
+
+			if (rocket.y <= rocket.targetY) {
+				burst(rocket);
+				rockets.splice(index, 1);
 			}
 		}
 
-		function animate(time) {
-			if (currentStage !== "fireworks") {
-				animationStarted = false;
-				return;
+		context.shadowBlur = 0;
+
+		for (let index = sparks.length - 1; index >= 0; index -= 1) {
+			const spark = sparks[index];
+			spark.x += spark.vx;
+			spark.y += spark.vy;
+			spark.vx *= 0.985;
+			spark.vy = spark.vy * 0.985 + 0.035;
+			spark.life -= 1;
+
+			context.globalAlpha = Math.max(spark.life / 70, 0);
+			context.fillStyle = spark.color;
+			context.fillRect(spark.x, spark.y, spark.size, spark.size);
+
+			if (spark.life <= 0) {
+				sparks.splice(index, 1);
 			}
+		}
 
-			context.clearRect(0, 0, width, height);
+		context.globalAlpha = 1;
+		requestAnimationFrame(animate);
+	}
 
-			if (time - lastLaunch > 850) {
-				launchFirework();
-				lastLaunch = time;
-			}
+	function beginFireworks() {
+		resizeCanvas();
 
-			for (let index = rockets.length - 1; index >= 0; index -= 1) {
-				const rocket = rockets[index];
-				rocket.y -= rocket.speed;
-
-				context.beginPath();
-				context.fillStyle = rocket.color;
-				context.shadowBlur = 12;
-				context.shadowColor = rocket.color;
-				context.arc(rocket.x, rocket.y, 2, 0, Math.PI * 2);
-				context.fill();
-
-				if (rocket.y <= rocket.targetY) {
-					burst(rocket);
-					rockets.splice(index, 1);
-				}
-			}
-
-			context.shadowBlur = 0;
-
-			for (let index = sparks.length - 1; index >= 0; index -= 1) {
-				const spark = sparks[index];
-				spark.x += spark.vx;
-				spark.y += spark.vy;
-				spark.vx *= 0.985;
-				spark.vy = spark.vy * 0.985 + 0.035;
-				spark.life -= 1;
-
-				context.globalAlpha = Math.max(spark.life / 70, 0);
-				context.fillStyle = spark.color;
-				context.fillRect(spark.x, spark.y, spark.size, spark.size);
-
-				if (spark.life <= 0) {
-					sparks.splice(index, 1);
-				}
-			}
-
-			context.globalAlpha = 1;
+		if (!animationStarted) {
+			animationStarted = true;
 			requestAnimationFrame(animate);
 		}
 
-		function beginFireworks() {
-			resizeCanvas();
+		playFireworkSound("lift", 0.35);
+	}
 
-			if (!animationStarted) {
-				animationStarted = true;
-				requestAnimationFrame(animate);
-			}
+	function setSoundState(enabled) {
+		soundEnabled = enabled;
+		soundButton.hidden = !enabled;
+		soundButton.textContent = enabled ? "Suara kembang api aktif" : "Aktifkan suara kembang api";
+	}
 
-			playFireworkSound("lift", 0.35);
-		}
+	soundButton.addEventListener("click", () => {
+		const next = !soundEnabled;
+		setSoundState(next);
 
-		function setSoundState(enabled) {
-			soundEnabled = enabled;
-			soundButton.hidden = !enabled;
-			soundButton.textContent = enabled ? "Suara kembang api aktif" : "Aktifkan suara kembang api";
-		}
+		if (next) playFireworkSound("lift", 0.35);
+	});
 
-		soundButton.addEventListener("click", () => {
-			const next = !soundEnabled;
-			setSoundState(next);
+	blowCandlesButton.addEventListener("click", () => {
+		const cakeStage = document.querySelector(".cake-stage");
 
-			if (next) {
-				playFireworkSound("lift", 0.35);
-			}
+		cakeStage.classList.add("blowing");
+		blowCandlesButton.disabled = true;
+		blowCandlesButton.textContent = "Sedang meniup lilin...";
+
+		window.setTimeout(() => {
+			cakeStage.classList.remove("blowing");
+			cakeStage.classList.add("candles-out");
+			cakeStage.setAttribute(
+				"aria-label",
+				"Kue ulang tahun dua lapis dengan tiga lilin yang baru saja ditiup"
+			);
+
+			blowCandlesButton.textContent = "Harapan terkirim";
+			wishMessage.textContent = "Semoga semua harapanmu menjadi nyata. Selamat ulang tahun!";
+			letterLink.hidden = false;
+		}, 850);
+	});
+
+	envelope.addEventListener("click", () => {
+		const isOpen = envelope.classList.toggle("is-open");
+		envelope.setAttribute("aria-expanded", String(isOpen));
+		letter.hidden = !isOpen;
+		instruction.textContent = isOpen
+			? "Sebuah pesan tulus, khusus untukmu."
+			: "Klik amplopnya untuk membuka surat.";
+	});
+
+	window.addEventListener("resize", resizeCanvas);
+
+	window.addEventListener("beforeunload", () => {
+		activeSounds.forEach((audio) => {
+			audio.pause();
+			audio.currentTime = 0;
 		});
-
-		blowCandlesButton.addEventListener("click", () => {
-			const cakeStage = document.querySelector(".cake-stage");
-
-			cakeStage.classList.add("blowing");
-			blowCandlesButton.disabled = true;
-			blowCandlesButton.textContent = "Sedang meniup lilin...";
-
-			window.setTimeout(() => {
-				cakeStage.classList.remove("blowing");
-				cakeStage.classList.add("candles-out");
-				cakeStage.setAttribute(
-					"aria-label",
-					"Kue ulang tahun dua lapis dengan tiga lilin yang baru saja ditiup"
-				);
-
-				blowCandlesButton.textContent = "Harapan terkirim";
-				wishMessage.textContent = "Semoga semua harapanmu menjadi nyata. Selamat ulang tahun!";
-				letterLink.hidden = false;
-			}, 850);
-		});
-
-		window.addEventListener("resize", resizeCanvas);
-
-		window.addEventListener("beforeunload", () => {
-			activeSounds.forEach((audio) => {
-				audio.pause();
-				audio.currentTime = 0;
-			});
+	});
+</script>
 		});
 	</script>
 </body>
